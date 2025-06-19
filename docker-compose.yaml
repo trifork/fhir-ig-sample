@@ -1,0 +1,48 @@
+# 1. Builds the IG
+# 2. Starts a HAPI-FHIR saerver with the installed IG on port 8080
+# 3. Hosts the thp IG on port 80
+# 
+# To run: docker-compose up -d
+
+services:
+
+  ig-publisher:
+    image: ghcr.io/trifork/ig-publisher:2.0.7
+    command: /bin/bash -c ./tmp/ig_build.sh build -ig /tmp/ig
+    volumes:
+      - ./:/tmp/ig
+      
+  ig-web:
+    image: nginx:latest
+    ports:
+      - 80:80
+    volumes:
+      - ./output:/usr/share/nginx/html
+    depends_on:
+      ig-publisher:
+        condition: service_completed_successfully
+
+  # Spins up a HAPI-FHIR server with a locally hosted implementation guide
+  hapi-local:
+    image: hapiproject/hapi:latest
+    container_name: hapi-ws-ig-local
+    environment:
+      hapi.fhir.install_transitive_ig_dependencies: false
+      # See sushi-config.yaml for the actual IG configuration
+      hapi.fhir.implementationguides.thp.name: fhir.example
+      hapi.fhir.implementationguides.thp.version: 0.1.0
+      hapi.fhir.implementationguides.thp.installMode: STORE_AND_INSTALL
+      hapi.fhir.implementationguides.thp.packageUrl: http://ig-web:80/package.tgz
+      hapi.fhir.enable_repository_validating_interceptor: true
+      spring.jpa.properties.hibernate.search.enabled: true
+      HAPI_FHIR_VALIDATION_REQUESTS_ENABLED: 'false'
+      HAPI_FHIR_SERVER_VALIDATION_FLAG_FAIL_ON_SEVERITY: error
+      HAPI_FHIR_SERVER_VALIDATION_FLAG_ENFORCE_REQUIREMENT: 'true'
+    ports:
+      - 8080:8080
+    depends_on:
+      ig-publisher:
+        condition: service_completed_successfully
+
+volumes:
+    hapi-data:
