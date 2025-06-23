@@ -35,7 +35,7 @@ services:
       hapi.fhir.implementationguides.thp.packageUrl: http://ig-web:80/package.tgz
       hapi.fhir.enable_repository_validating_interceptor: true
       spring.jpa.properties.hibernate.search.enabled: true
-      HAPI_FHIR_VALIDATION_REQUESTS_ENABLED: 'false'
+      HAPI_FHIR_VALIDATION_REQUESTS_ENABLED: 'true'
       HAPI_FHIR_SERVER_VALIDATION_FLAG_FAIL_ON_SEVERITY: error
       HAPI_FHIR_SERVER_VALIDATION_FLAG_ENFORCE_REQUIREMENT: 'true'
     ports:
