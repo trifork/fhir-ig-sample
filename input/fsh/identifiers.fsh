@@ -19,4 +19,4 @@ Expression: "value.matches('^[A-z0-9]+:[a-z0-9\\\\.-]+$')"
 Invariant: UIDPrefixMatches
 Description: "The prefix (before the ':') must match the PrefixExtension value."
 Severity: #error
-Expression: "value.startsWith(extension.where(url='http://example.org/StructureDefinition/Prefix').first().value & ':')"
+Expression: "value.startsWith(%context.extension.where(url='http://example.org/StructureDefinition/Prefix').first().value & ':')"
