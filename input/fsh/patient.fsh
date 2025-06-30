@@ -12,3 +12,13 @@ Description: "An example of a patient with a license to krill."
 * name
   * given[0] = "James"
   * family = "Pond"
+
+Profile: SomeGroup
+Parent: Group
+
+
+Extension: SomeGroupExtension
+Context: SomeGroup
+* ^status = #active
+* ^experimental = false
+* value[x] only Reference(MyPatient)
