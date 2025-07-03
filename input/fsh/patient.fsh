@@ -22,3 +22,9 @@ Context: SomeGroup
 * ^status = #active
 * ^experimental = false
 * value[x] only Reference(MyPatient)
+
+Extension: SomeExtension
+Context: SomeGroupExtension
+* ^status = #active
+* ^experimental = false
+* value[x] only string
