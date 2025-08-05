@@ -52,3 +52,18 @@ Usage: #example
 * comment = "The slots attached to this schedule should be specialized to cover immunizations within the clinic"
 * extension.url = "http://hl7.org/fhir/5.0/StructureDefinition/extension-Schedule.name"
 * extension.valueString = "Example Name"
+
+Profile: ExampleObservationDefinition
+Title: "Example Observation Definition"
+Parent: ObservationDefinition
+Description: "Core Observation Definition for Observation Templates in the Example"
+* code 1..
+* permittedDataType 0..1
+* extension contains
+    http://hl7.org/fhir/5.0/StructureDefinition/extension-ObservationDefinition.title named title 0..1
+     and
+     http://hl7.org/fhir/5.0/StructureDefinition/extension-ObservationDefinition.component named component 0..
+* modifierExtension contains
+    http://hl7.org/fhir/5.0/StructureDefinition/extension-ObservationDefinition.status named status 0..1 ?!
+* modifierExtension[http://hl7.org/fhir/5.0/StructureDefinition/extension-ObservationDefinition.status] ^isModifierReason = "Status change is modifying the meaning"
+
