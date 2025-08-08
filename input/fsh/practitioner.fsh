@@ -31,6 +31,10 @@ Parent: DocumentReference
 
 Alias: $add-binding = http://hl7.org/fhir/tools/StructureDefinition/additional-binding
 
+// from https://github.com/HL7/fhir-sdoh-clinicalcare/blob/master/input/fsh/profiles/SDOHCCCondition.fsh#L120 and 
+//https://github.com/HL7/fhir-sdoh-clinicalcare/blob/56de4b7eefbd12d0cec1eadfeeeadc65196bfb6b/input/fsh/aliases.fsh
+// also see https://build.fhir.org/ig/HL7/fhir-sdoh-clinicalcare/StructureDefinition-SDOHCC-Condition.html
+
 RuleSet: AdditionalBinding(profile, elementPath, usagePath, usageCategory, valueSet, binding)
 * {elementPath} ^binding.extension[+].url = $add-binding
 * {elementPath} ^binding.extension[=].extension[0].url = "purpose"
@@ -40,3 +44,5 @@ RuleSet: AdditionalBinding(profile, elementPath, usagePath, usageCategory, value
 * {elementPath} ^binding.extension[=].extension[+].url = "usage"
 * {elementPath} ^binding.extension[=].extension[=].valueUsageContext.code.system = Canonical({profile})
 * {elementPath} ^binding.extension[=].extension[=].valueUsageContext.code.code = #{usagePath}
+//* {elementPath} ^binding.extension[=].extension[=].valueUsageContext.valueCodeableConcept = SDOHCCCodeSystemTemporaryCodes#{usageCategory} // This is not official display. Need to support display? "{profile} {usageCategory} ValueSet"
+//* {elementPath} ^binding.extension[=].extension[=].valueUsageContext.valueCodeableConcept.text = "{usageCategory}"
