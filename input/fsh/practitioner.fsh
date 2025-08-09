@@ -221,10 +221,18 @@ Title: "Targets for classCode 419891008 (Record artifact)"
 
 
 
-Instance:   exDoc
+Instance:   exDoc1
 InstanceOf: SampleDocumentReference
 * status = #current
-* category = $sct#2171000195109
-* type = $sct#371531000
+* category = $sct#371531000
+* type = $sct#371530004
+* content.attachment.contentType = #text/plain
+* content.attachment.url = "http://example.com/nowhere.txt"
+
+Instance:   exDoc2-invalid
+InstanceOf: SampleDocumentReference
+* status = #current
+* category = $sct#371531000
+* type = $sct#721965002
 * content.attachment.contentType = #text/plain
 * content.attachment.url = "http://example.com/nowhere.txt"
