@@ -24,26 +24,28 @@ Profile: SampleDocumentReference
 Parent: DocumentReference
 
 
-* insert AdditionalBinding(SampleDocumentReference, category, DocumentReference.type, 371531000, VS_DocType_371531000, extensible)
-* insert AdditionalBinding(SampleDocumentReference, category, DocumentReference.type, 721927009, VS_DocType_721927009, extensible)
-* insert AdditionalBinding(SampleDocumentReference, category, DocumentReference.type, 721963009, VS_DocType_721963009, extensible)
-* insert AdditionalBinding(SampleDocumentReference, category, DocumentReference.type, 422735006, VS_DocType_422735006, extensible)
-* insert AdditionalBinding(SampleDocumentReference, category, DocumentReference.type, 371525003, VS_DocType_371525003, extensible)
-* insert AdditionalBinding(SampleDocumentReference, category, DocumentReference.type, 734163000, VS_DocType_734163000, extensible)
-* insert AdditionalBinding(SampleDocumentReference, category, DocumentReference.type, 440545006, VS_DocType_440545006, extensible)
-* insert AdditionalBinding(SampleDocumentReference, category, DocumentReference.type, 184216000, VS_DocType_184216000, extensible)
-* insert AdditionalBinding(SampleDocumentReference, category, DocumentReference.type, 371537001, VS_DocType_371537001, extensible)
-* insert AdditionalBinding(SampleDocumentReference, category, DocumentReference.type, 371538006, VS_DocType_371538006, extensible)
-* insert AdditionalBinding(SampleDocumentReference, category, DocumentReference.type, 722160009, VS_DocType_722160009, extensible)
-* insert AdditionalBinding(SampleDocumentReference, category, DocumentReference.type, 722216001, VS_DocType_722216001, extensible)
-* insert AdditionalBinding(SampleDocumentReference, category, DocumentReference.type, 772790007, VS_DocType_772790007, extensible)
-* insert AdditionalBinding(SampleDocumentReference, category, DocumentReference.type, 405624007, VS_DocType_405624007, extensible)
-* insert AdditionalBinding(SampleDocumentReference, category, DocumentReference.type, 417319006, VS_DocType_417319006, extensible)
-* insert AdditionalBinding(SampleDocumentReference, category, DocumentReference.type, 2171000195109, VS_DocType_2171000195109, extensible)
-* insert AdditionalBinding(SampleDocumentReference, category, DocumentReference.type, 419891008, VS_DocType_419891008, extensible)
+* insert AdditionalBinding(SampleDocumentReference, type, DocumentReference.category, 371531000, VS_DocType_371531000, required)
+//* insert AdditionalBinding(SampleDocumentReference, type, DocumentReference.category, 371531000, http://example.org/ValueSet/vs-doctype-371531000, required)
+* insert AdditionalBinding(SampleDocumentReference, type, DocumentReference.category, 721927009, VS_DocType_721927009, required)
+* insert AdditionalBinding(SampleDocumentReference, type, DocumentReference.category, 721963009, VS_DocType_721963009, required)
+* insert AdditionalBinding(SampleDocumentReference, type, DocumentReference.category, 422735006, VS_DocType_422735006, required)
+* insert AdditionalBinding(SampleDocumentReference, type, DocumentReference.category, 371525003, VS_DocType_371525003, required)
+* insert AdditionalBinding(SampleDocumentReference, type, DocumentReference.category, 734163000, VS_DocType_734163000, required)
+* insert AdditionalBinding(SampleDocumentReference, type, DocumentReference.category, 440545006, VS_DocType_440545006, required)
+* insert AdditionalBinding(SampleDocumentReference, type, DocumentReference.category, 184216000, VS_DocType_184216000, required)
+* insert AdditionalBinding(SampleDocumentReference, type, DocumentReference.category, 371537001, VS_DocType_371537001, required)
+* insert AdditionalBinding(SampleDocumentReference, type, DocumentReference.category, 371538006, VS_DocType_371538006, required)
+* insert AdditionalBinding(SampleDocumentReference, type, DocumentReference.category, 722160009, VS_DocType_722160009, required)
+* insert AdditionalBinding(SampleDocumentReference, type, DocumentReference.category, 722216001, VS_DocType_722216001, required)
+* insert AdditionalBinding(SampleDocumentReference, type, DocumentReference.category, 772790007, VS_DocType_772790007, required)
+* insert AdditionalBinding(SampleDocumentReference, type, DocumentReference.category, 405624007, VS_DocType_405624007, required)
+* insert AdditionalBinding(SampleDocumentReference, type, DocumentReference.category, 417319006, VS_DocType_417319006, required)
+* insert AdditionalBinding(SampleDocumentReference, type, DocumentReference.category, 2171000195109, VS_DocType_2171000195109, required)
+* insert AdditionalBinding(SampleDocumentReference, type, DocumentReference.category, 419891008, VS_DocType_419891008, required)
 
 
 * category ^requirements = "Code is required and must be selected from the bound value set."
+* category from http://fhir.ch/ig/ch-term/ValueSet/DocumentEntry.classCode
 * category ^binding.description = "Valueset to describe the actual problem experienced by the patient"
 
 Alias: $add-binding = http://hl7.org/fhir/tools/StructureDefinition/additional-binding
@@ -60,7 +62,7 @@ RuleSet: AdditionalBinding(profile, elementPath, usagePath, usageCategory, value
 * {elementPath} ^binding.extension[=].extension[0].url = "purpose"
 * {elementPath} ^binding.extension[=].extension[=].valueCode = #{binding}
 * {elementPath} ^binding.extension[=].extension[+].url = "valueSet"
-* {elementPath} ^binding.extension[=].extension[=].valueCanonical = {valueSet}
+* {elementPath} ^binding.extension[=].extension[=].valueCanonical = Canonical({valueSet})
 * {elementPath} ^binding.extension[=].extension[+].url = "usage"
 * {elementPath} ^binding.extension[=].extension[=].valueUsageContext.code.system = Canonical({profile})
 * {elementPath} ^binding.extension[=].extension[=].valueUsageContext.code.code = #{usagePath}
@@ -216,3 +218,13 @@ Id: vs-doctype-419891008
 Title: "Targets for classCode 419891008 (Record artifact)"
 * ^status = #active
 * $sct#419891008
+
+
+
+Instance:   exDoc
+InstanceOf: SampleDocumentReference
+* status = #current
+* category = $sct#2171000195109
+* type = $sct#371531000
+* content.attachment.contentType = #text/plain
+* content.attachment.url = "http://example.com/nowhere.txt"
