@@ -5,6 +5,12 @@ Profile: MyPatient
 Parent: Patient
 Description: "An example profile of the Patient resource."
 * name 1..* MS
+* obeys PatientResolve
+
+Invariant: PatientResolve
+Description: "Validation logic for the patient value element."
+Severity: #error
+Expression: "Patient.link.other.exists() implies Patient.link.other.resolve()"
 
 Instance: PatientExample
 InstanceOf: MyPatient
@@ -67,3 +73,11 @@ Description: "Core Observation Definition for Observation Templates in the Examp
     http://hl7.org/fhir/5.0/StructureDefinition/extension-ObservationDefinition.status named status 0..1 ?!
 * modifierExtension[http://hl7.org/fhir/5.0/StructureDefinition/extension-ObservationDefinition.status] ^isModifierReason = "Status change is modifying the meaning"
 
+Profile: SampleBinary
+Parent: Binary
+Id: sample-binary
+Title: "Sample Binary"
+Description: "This profile is intended to be used to represent the Binary."
+* ^status = #active
+* ^experimental = false
+* securityContext 1..1
