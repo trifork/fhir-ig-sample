@@ -18,6 +18,11 @@ Description: "An example of a patient with a license to krill."
 * name
   * given[0] = "James"
   * family = "Pond"
+* telecom[0].extension.url = "http://hl7.org/fhir/StructureDefinition/elementSource"
+* telecom[=].extension.valueUri = "http://some.local.system"
+* telecom[=].system = #email
+* telecom[=].value = "example@testfactory.xyz"
+
 
 Profile: SomeGroup
 Parent: Group
